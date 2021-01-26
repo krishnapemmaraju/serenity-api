@@ -38,5 +38,10 @@ public class Utils {
 		}
 		return config.getString(key);
 	}
+	
+	public static String[] splitString(String  stringParam,String delimter) {
+		String strPalit[] = stringParam.split(delimter);
+		return strPalit;
+	}
 
 }

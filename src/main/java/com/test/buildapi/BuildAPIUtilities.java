@@ -1,36 +1,24 @@
-package com.test.api.implementation;
+package com.test.buildapi;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.test.buildapi.APIHttpMethods;
 import com.test.utils.Utils;
 
 import io.restassured.response.Response;
 import net.serenitybdd.core.environment.EnvironmentSpecificConfiguration;
 import net.serenitybdd.rest.SerenityRest;
-import net.thucydides.core.annotations.Step;
 import net.thucydides.core.util.EnvironmentVariables;
 
-public class GenericAPIStepImp  {
-		
+public class BuildAPIUtilities {
+	
 	public String endPointURL;
 	private EnvironmentVariables env;
 	public Map<String,String> queryParam = new HashMap<String,String>();
 	
 	public String baseURL() {
-		return EnvironmentSpecificConfiguration.from(env).getProperty("restapi.baseurl");
-	}
-	
-	@Step("Construct the Query Params to the API URL")
-	public void setEndPointURLWithQueryParams(Map<String,String> params) {
-	       setEndPointURL(params);
-		}
-	
-	@Step("Call the API Endpoint")
-	public Response callHttpEndPoint(String endpoint,String resource) {
-		return callHttpGetEndPointWithURLAPIKey( endpoint,resource,"");
+		return EnvironmentSpecificConfiguration.from(env).getProperty("restapi.baserul");
 	}
 
 	public static String endPoint(Map<String, String> params) {
@@ -108,7 +96,7 @@ public class GenericAPIStepImp  {
 		return restEndPoint;
 	}
 
-	private  Response callEndpointHttpMethod(String url, String method, String body) {
+	private static Response callEndpointHttpMethod(String url, String method, String body) {
 		switch (method) {
 		case "GET":
 			return callHttpEndPointWithMethodNoBody(url);
@@ -123,14 +111,14 @@ public class GenericAPIStepImp  {
 		}
 	}
 
-	private  Response callHttpEndPointWithMethodNoBody(String url) {
+	private static Response callHttpEndPointWithMethodNoBody(String url) {
 		Response response = SerenityRest.given().contentType("application/json")
 				.header("Content-Type", "application/json").get(url);
 		return response;
 
 	}
 
-	private  Response callHttpEndPointPostWithBody(String url, String body) {
+	private static Response callHttpEndPointPostWithBody(String url, String body) {
 		Response response = SerenityRest.given().contentType("application/json")
 				.header("Content-Type", "application/json").body(body).when().post(url);
 		return response;
@@ -140,4 +128,5 @@ public class GenericAPIStepImp  {
 	public String validateResponseBody(Response response, String jsonPath) {
 		return response.getBody().jsonPath().get(jsonPath).toString().trim();
 	}
+
 }
