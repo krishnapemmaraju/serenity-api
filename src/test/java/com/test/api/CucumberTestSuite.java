@@ -9,7 +9,6 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
 		plugin = {"pretty"},
 		features= { "src/test/resources/features"},
-		tags = "no @Skip",
 		dryRun=false
 		)
 public class CucumberTestSuite {}
