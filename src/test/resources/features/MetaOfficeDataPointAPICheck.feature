@@ -17,8 +17,7 @@ Feature: Invoke Met Office DataPoint API For forecast data feeds
       | forecast | resource                     |
       | 3hours   | /val/wxfcs/all/json/sitelist |
       | daily    | /val/wxfcs/all/json/sitelist |
-  
-  @Skip
+
   Scenario Outline: Get Forecast feeds for specific LocationID
     Given client uses the following url parameters:
       | res | <forecast> |
